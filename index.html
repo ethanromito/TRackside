@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#11100d">
+    <title>TRackside | A Front-Row Seat to Racing History</title>
+    <meta
+      name="description"
+      content="TRackside reveals a legendary race track every day from 2026 through 2027 with cinematic visuals, history, landmarks, corners, and collectible track outlines."
+    >
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="trackside-photo-calendar.js"></script>
+    <script defer src="trackside-f1-layouts.js"></script>
+    <script defer src="app.js"></script>
+  </head>
+  <body>
+    <canvas id="trackVisual" class="track-visual" aria-hidden="true"></canvas>
+    <div id="photoStage" class="photo-stage" aria-hidden="true">
+      <img id="trackPhotoA" class="track-photo is-active" alt="" decoding="async">
+      <img id="trackPhotoB" class="track-photo" alt="" decoding="async">
+    </div>
+    <div class="visual-shade" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <a class="brand-lockup" href="#" aria-label="TRackside">
+        <span class="brand-word"><span class="brand-tr">TR</span>ackside</span>
+        <span class="brand-subtitle">A Front-Row Seat to Racing History</span>
+      </a>
+
+      <div class="collection-pill" aria-label="Collection day and date">
+        <span id="collectionDay">Day 1 of 730</span>
+        <span id="headerDate">January 1, 2026</span>
+      </div>
+    </header>
+
+    <main class="experience-shell">
+      <section class="track-hero" aria-live="polite">
+        <div class="date-row">
+          <span id="dateLabel" class="date-label">January 1, 2026</span>
+          <span id="factCategory" class="category-chip">Heritage</span>
+        </div>
+
+        <h1 id="trackName">TRackside</h1>
+        <p id="trackLocation" class="track-location">Loading the collection...</p>
+        <p id="trackFact" class="track-fact"></p>
+
+        <div class="stats-strip" aria-label="Track facts">
+          <div>
+            <strong id="trackLength">--</strong>
+            <span>Length</span>
+          </div>
+          <div>
+            <strong id="trackOpened">--</strong>
+            <span>Opened</span>
+          </div>
+          <div>
+            <strong id="trackElevation">--</strong>
+            <span>Character</span>
+          </div>
+        </div>
+
+        <div class="action-bar" role="toolbar" aria-label="Track navigation">
+          <button id="previousButton" class="icon-button" type="button" aria-label="Previous track" title="Previous track">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M15.5 5 8.5 12l7 7"></path>
+            </svg>
+          </button>
+          <button id="todayButton" class="icon-button emphasized" type="button" aria-label="Today" title="Today">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="12" r="7"></circle>
+              <circle cx="12" cy="12" r="2"></circle>
+              <path d="M12 2v3M12 19v3M2 12h3M19 12h3"></path>
+            </svg>
+          </button>
+          <button id="nextButton" class="icon-button" type="button" aria-label="Next track" title="Next track">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="m8.5 5 7 7-7 7"></path>
+            </svg>
+          </button>
+          <button id="randomButton" class="icon-button" type="button" aria-label="Random track" title="Random track">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="5" y="5" width="14" height="14" rx="2"></rect>
+              <circle cx="9" cy="9" r="1"></circle>
+              <circle cx="15" cy="9" r="1"></circle>
+              <circle cx="12" cy="12" r="1"></circle>
+              <circle cx="9" cy="15" r="1"></circle>
+              <circle cx="15" cy="15" r="1"></circle>
+            </svg>
+          </button>
+          <button id="favoriteButton" class="icon-button" type="button" aria-label="Add to Tony's favorites" title="Tony's favorites" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M20.5 8.6c0 5-8.5 10.4-8.5 10.4S3.5 13.6 3.5 8.6A4.6 4.6 0 0 1 12 6a4.6 4.6 0 0 1 8.5 2.6Z"></path>
+            </svg>
+          </button>
+          <button id="motionButton" class="icon-button" type="button" aria-label="Toggle cinematic motion" title="Cinematic motion" aria-pressed="true">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 14c3-7 13-7 16 0"></path>
+              <path d="M7 14c2-3 8-3 10 0"></path>
+              <path d="M10 14c1-1 3-1 4 0"></path>
+              <path d="M12 14v5"></path>
+            </svg>
+          </button>
+          <button id="shareButton" class="icon-button" type="button" aria-label="Share track" title="Share track">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="18" cy="5" r="3"></circle>
+              <circle cx="6" cy="12" r="3"></circle>
+              <circle cx="18" cy="19" r="3"></circle>
+              <path d="m8.7 10.7 6.6-4.4M8.7 13.3l6.6 4.4"></path>
+            </svg>
+          </button>
+        </div>
+      </section>
+
+      <aside class="museum-panel" aria-label="Track dossier">
+        <div class="outline-stage">
+          <img id="layoutImage" class="layout-image" alt="" decoding="async">
+          <svg id="outlineSvg" viewBox="0 0 100 100" role="img" aria-labelledby="outlineTitle">
+            <title id="outlineTitle">Track outline</title>
+            <path id="outlineHalo" class="outline-halo"></path>
+            <path id="outlinePath" class="outline-path"></path>
+            <path id="outlineDashes" class="outline-dashes"></path>
+            <circle id="outlineMarker" class="outline-marker" cx="50" cy="50" r="2"></circle>
+          </svg>
+        </div>
+
+        <div class="metadata-list">
+          <section>
+            <span>Landmark Spotlight</span>
+            <p id="landmarkText"></p>
+          </section>
+          <section>
+            <span>Iconic Corner</span>
+            <p id="cornerText"></p>
+          </section>
+          <section>
+            <span>Historical Achievement</span>
+            <p id="achievementText"></p>
+          </section>
+          <section>
+            <span>Scene Brief</span>
+            <p id="promptText"></p>
+          </section>
+        </div>
+
+        <div class="timeline-band" aria-label="Calendar position">
+          <div class="timeline-copy">
+            <span>2026-2027 Collector Calendar</span>
+            <strong id="dateIsoLabel">2026-01-01</strong>
+          </div>
+          <div class="progress-track" aria-hidden="true">
+            <span id="progressFill"></span>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <noscript>
+      <p class="noscript-message">TRackside needs JavaScript enabled to reveal the daily track collection.</p>
+    </noscript>
+  </body>
+</html>
