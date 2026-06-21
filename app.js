@@ -1351,6 +1351,8 @@ const F1_LAYOUT_TITLE_ALIASES = {
   "zeltweg airfield": "Zeltweg Air Base",
 };
 
+let f1LayoutLookup = null;
+
 const elements = {
   visual: document.getElementById("trackVisual"),
   photoStage: document.getElementById("photoStage"),
@@ -2325,8 +2327,6 @@ function normalizeTitle(title) {
     .replace(/[^a-z0-9]+/g, " ")
     .trim();
 }
-
-let f1LayoutLookup = null;
 
 function getF1LayoutForTitle(title) {
   const normalizedTitle = normalizeTitle(title);
